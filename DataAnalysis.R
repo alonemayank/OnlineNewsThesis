@@ -41,7 +41,6 @@ qplot(data = MyData, x = MyData$avg_negative_polarity, y = shares) +
  ylim(c(0,7500)) + xlim(c(0,-1))
 
 #Plot for number of images
-
 qplot(data = MyData, x = MyData$num_imgs, y = shares) + 
   ylab("Shares") + xlab("Number of Images") + 
   ylim(c(0,7500)) + xlim(c(0,55))

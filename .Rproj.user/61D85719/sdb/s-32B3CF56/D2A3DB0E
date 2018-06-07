@@ -1,14 +1,14 @@
 {
     "collab_server" : "",
-    "contents" : "MyData <- read.csv(file=\"/Users/apurvatripathi/Downloads/OnlineNewsPopularity2/OnlineNewsPopularity.csv\", header=TRUE, sep=\",\")\n#Summary of the data\nsummary(MyData)\n\n#Head of the data\nhead(MyData[1:5,])\n\n#Std Deviation of the data\nsd(MyData$shares,na.rm = FALSE)\noptions(scipen=5)\n\n#Simple data Plot\nplot(MyData$num_imgs,MyData$shares)\n\n#Histogram for shares\nhist(MyData$shares)\n\n#Lets look at the data once again\nshares = MyData$shares\nmedian(shares)\nmax(shares)\n\n#Use ggplot2 for better plots\nrequire(ggplot2)\n\n#Plotting the histogram with delimiting x and y axis\nqplot(data = MyData, x = shares) + ylab(\"Frequency\") + xlab(\"No of Shares\") + \n  xlim(c(0, 5000)) + ylim(c(0,7500))\n\n#Using density\nggplot(data=MyData, aes(x = shares)) + stat_density() + xlim(c(0, 5000))\n\n#Plot for positive and negative polarity\n\nqplot(data = MyData, x = MyData$avg_positive_polarity, y = shares) + \n  ylab(\"Shares\") + xlab(\"Positive Polarity\") + \n  ylim(c(0,7500)) + xlim(c(0,1))\n\nqplot(data = MyData, x = MyData$avg_negative_polarity, y = shares) + \n  ylab(\"Shares\") + xlab(\"Negative Polarity\") + \n ylim(c(0,7500)) + xlim(c(0,-1))\n\n#Plot for number of images\n\nqplot(data = MyData, x = MyData$num_imgs, y = shares) + \n  ylab(\"Shares\") + xlab(\"Number of Images\") + \n  ylim(c(0,7500)) + xlim(c(0,55))\n",
+    "contents" : "MyData <- read.csv(file=\"/Users/apurvatripathi/Downloads/OnlineNewsPopularity2/OnlineNewsPopularity.csv\", header=TRUE, sep=\",\")\n#Summary of the data\nsummary(MyData)\n\n#Head of the data\nhead(MyData[1:5,])\n\n#Std Deviation of the data\nsd(MyData$shares,na.rm = FALSE)\noptions(scipen=5)\n\n#Simple data Plot\nplot(MyData$num_imgs,MyData$shares)\n\n#Histogram for shares\nhist(MyData$shares)\n\n#Lets look at the data once again\nshares = MyData$shares\nmedian(shares)\nmax(shares)\n\n#Use ggplot2 for better plots\nrequire(ggplot2)\n\n#Plotting the histogram with delimiting x and y axis\nqplot(data = MyData, x = shares) + ylab(\"Frequency\") + xlab(\"No of Shares\") + \n  xlim(c(0, 5000)) + ylim(c(0,7500))\n\n#Using density\nggplot(data=MyData, aes(x = shares)) + stat_density() + xlim(c(0, 5000))\n\n#Plot for positive and negative polarity\n\nqplot(data = MyData, x = MyData$avg_positive_polarity, y = shares) + \n  ylab(\"Shares\") + xlab(\"Positive Polarity\") + \n  ylim(c(0,7500)) + xlim(c(0,1))\n\nqplot(data = MyData, x = MyData$avg_negative_polarity, y = shares) + \n  ylab(\"Shares\") + xlab(\"Negative Polarity\") + \n ylim(c(0,7500)) + xlim(c(0,-1))\n\n#Plot for number of images\nqplot(data = MyData, x = MyData$num_imgs, y = shares) + \n  ylab(\"Shares\") + xlab(\"Number of Images\") + \n  ylim(c(0,7500)) + xlim(c(0,55))\n",
     "created" : 1528359115118.000,
     "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "2321329212",
+    "hash" : "1135663044",
     "id" : "D2A3DB0E",
-    "lastKnownWriteTime" : 1528362741,
-    "last_content_update" : 1528362741489,
+    "lastKnownWriteTime" : 1528363511,
+    "last_content_update" : 1528363511236,
     "path" : "~/Desktop/Cloud/OnlineNewsThesis/DataAnalysis.R",
     "project_path" : "DataAnalysis.R",
     "properties" : {
