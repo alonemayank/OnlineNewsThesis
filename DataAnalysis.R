@@ -9,6 +9,7 @@ head(MyData[1:5,])
 sd(MyData$shares,na.rm = FALSE)
 options(scipen=5)
 
+
 #Simple data Plot
 plot(MyData$num_imgs,MyData$shares)
 
@@ -16,31 +17,38 @@ plot(MyData$num_imgs,MyData$shares)
 hist(MyData$shares)
 
 #Lets look at the data once again
-shares = MyData$shares
-median(shares)
-max(shares)
+shares_log = log(MyData$shares)
+head(shares_log)
+shares_log[1:10]
+median(shares_log)
+max(shares_log)
 
 #Use ggplot2 for better plots
 require(ggplot2)
 
 #Plotting the histogram with delimiting x and y axis
-qplot(data = MyData, x = shares) + ylab("Frequency") + xlab("No of Shares") + 
-  xlim(c(0, 5000)) + ylim(c(0,7500))
+qplot(data = MyData, x = shares_log) + ylab("Frequency") + xlab("No of Shares")
 
 #Using density
-ggplot(data=MyData, aes(x = shares)) + stat_density() + xlim(c(0, 5000))
+ggplot(data=MyData, aes(x = shares_log)) + stat_density()
 
 #Plot for positive and negative polarity
 
-qplot(data = MyData, x = MyData$avg_positive_polarity, y = shares) + 
-  ylab("Shares") + xlab("Positive Polarity") + 
-  ylim(c(0,7500)) + xlim(c(0,1))
+qplot(data = MyData, x = MyData$avg_positive_polarity, y = shares_log) + 
+  ylab("Shares") + xlab("Positive Polarity") 
 
-qplot(data = MyData, x = MyData$avg_negative_polarity, y = shares) + 
-  ylab("Shares") + xlab("Negative Polarity") + 
- ylim(c(0,7500)) + xlim(c(0,-1))
+qplot(data = MyData, x = MyData$avg_negative_polarity, y = shares_log) + 
+  ylab("Shares") + xlab("Negative Polarity")
 
 #Plot for number of images
-qplot(data = MyData, x = MyData$num_imgs, y = shares) + 
-  ylab("Shares") + xlab("Number of Images") + 
-  ylim(c(0,7500)) + xlim(c(0,55))
+qplot(data = MyData, x = MyData$num_imgs, y = shares_log) + 
+  ylab("Shares") + xlab("Number of Images")
+
+
+# Boxplot of MPG by Car Cylinders 
+boxplot(shares_log,data=MyData, main="Shares Data Box Plot")
+barplot(shares_log) 
+freqTable= table(shares)
+barplot(freqTable)
+barplot(MyData$num_videos,MyData$shares)
+hist(MyData$num_videos,MyData$shares)
