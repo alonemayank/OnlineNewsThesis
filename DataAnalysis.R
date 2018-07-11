@@ -1,6 +1,21 @@
-MyData <- read.csv(file="/Users/apurvatripathi/Downloads/OnlineNewsPopularity2/OnlineNewsPopularity.csv", header=TRUE, sep=",")
+library("rjson")
+
+#Read Original Statistics Data from UCI
+MyData <- read.csv(file="./OnlineNewsPopularity.csv", header=TRUE, sep=",")
+
+#Read data from refined csv of news articles (Not working)
+#newsArticles = read.csv(file="./newsData.csv",header=TRUE,sep=",")
+
+#Read news text data in json format
+json = fromJSON(file = "/Users/apurvatripathi/Desktop/Thesis Cloud/OnlineNewsData/webScrapper/mashableScrapper/convertedJSON.json")
+
+#convert json to data frame
+textData = do.call(cbind, json)
+
+
 #Summary of the data
 summary(MyData)
+
 
 #Head of the data
 head(MyData[1:5,])
@@ -34,21 +49,29 @@ ggplot(data=MyData, aes(x = shares_log)) + stat_density()
 
 #Plot for positive and negative polarity
 
-qplot(data = MyData, x = MyData$avg_positive_polarity, y = shares_log) + 
-  ylab("Shares") + xlab("Positive Polarity") 
+qplot(data = MyData, x = shares_log, y = MyData$avg_positive_polarity) + 
+  ylab("Positive Polarity") + xlab("Shares") 
 
-qplot(data = MyData, x = MyData$avg_negative_polarity, y = shares_log) + 
-  ylab("Shares") + xlab("Negative Polarity")
+qplot(data = MyData, x = shares_log, y = MyData$avg_negative_polarity) + 
+  ylab("Negative Polarity") + xlab("Shares")
 
 #Plot for number of images
-qplot(data = MyData, x = MyData$num_imgs, y = shares_log) + 
-  ylab("Shares") + xlab("Number of Images")
+qplot(data = MyData, x = shares_log, y = MyData$num_imgs) + 
+  ylab("Number of Images") + xlab("Shares")
 
 
-# Boxplot of MPG by Car Cylinders 
+# Boxplot of shares
 boxplot(shares_log,data=MyData, main="Shares Data Box Plot")
-barplot(shares_log) 
-freqTable= table(shares)
+
+#Bar plot of shares
+barplot(shares_log)
+
+#Frequency bar plot
+freqTable= table(shares_log)
 barplot(freqTable)
-barplot(MyData$num_videos,MyData$shares)
-hist(MyData$num_videos,MyData$shares)
+
+#Bar plot shares vs videos
+barplot(MyData$shares,MyData$num_videos,xlab= "Shares", ylab="Videos")
+
+#Histogram of shares vs videos (Not working)
+#hist(MyData$shares,MyData$num_videos)

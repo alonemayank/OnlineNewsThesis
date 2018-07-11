@@ -1,0 +1,605 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={DataAnalysis.R},
+            pdfauthor={apurvatripathi},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{DataAnalysis.R}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{apurvatripathi}
+    \preauthor{\centering\large\emph}
+  \postauthor{\par}
+      \predate{\centering\large\emph}
+  \postdate{\par}
+    \date{Wed Jul 11 01:01:22 2018}
+
+
+\begin{document}
+\maketitle
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(}\StringTok{"rjson"}\NormalTok{)}
+
+\CommentTok{#Read Original Statistics Data from UCI}
+\NormalTok{MyData <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\DataTypeTok{file=}\StringTok{"./OnlineNewsPopularity.csv"}\NormalTok{, }\DataTypeTok{header=}\OtherTok{TRUE}\NormalTok{, }\DataTypeTok{sep=}\StringTok{","}\NormalTok{)}
+
+\CommentTok{#Read data from refined csv of news articles (Not working)}
+\CommentTok{#newsArticles = read.csv(file="./newsData.csv",header=TRUE,sep=",")}
+
+\CommentTok{#Read news text data in json format}
+\NormalTok{json =}\StringTok{ }\KeywordTok{fromJSON}\NormalTok{(}\DataTypeTok{file =} \StringTok{"/Users/apurvatripathi/Desktop/Thesis Cloud/OnlineNewsData/webScrapper/mashableScrapper/convertedJSON.json"}\NormalTok{)}
+
+\CommentTok{#convert json to data frame}
+\NormalTok{textData =}\StringTok{ }\KeywordTok{do.call}\NormalTok{(cbind, json)}
+
+
+\CommentTok{#Summary of the data}
+\KeywordTok{summary}\NormalTok{(MyData)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                                                              url       
+##  http://mashable.com/2013/01/07/amazon-instant-video-browser/  :    1  
+##  http://mashable.com/2013/01/07/ap-samsung-sponsored-tweets/   :    1  
+##  http://mashable.com/2013/01/07/apple-40-billion-app-downloads/:    1  
+##  http://mashable.com/2013/01/07/astronaut-notre-dame-bcs/      :    1  
+##  http://mashable.com/2013/01/07/att-u-verse-apps/              :    1  
+##  http://mashable.com/2013/01/07/beewi-smart-toys/              :    1  
+##  (Other)                                                       :39638  
+##    timedelta     n_tokens_title n_tokens_content n_unique_tokens   
+##  Min.   :  8.0   Min.   : 2.0   Min.   :   0.0   Min.   :  0.0000  
+##  1st Qu.:164.0   1st Qu.: 9.0   1st Qu.: 246.0   1st Qu.:  0.4709  
+##  Median :339.0   Median :10.0   Median : 409.0   Median :  0.5392  
+##  Mean   :354.5   Mean   :10.4   Mean   : 546.5   Mean   :  0.5482  
+##  3rd Qu.:542.0   3rd Qu.:12.0   3rd Qu.: 716.0   3rd Qu.:  0.6087  
+##  Max.   :731.0   Max.   :23.0   Max.   :8474.0   Max.   :701.0000  
+##                                                                    
+##  n_non_stop_words    n_non_stop_unique_tokens   num_hrefs     
+##  Min.   :   0.0000   Min.   :  0.0000         Min.   :  0.00  
+##  1st Qu.:   1.0000   1st Qu.:  0.6257         1st Qu.:  4.00  
+##  Median :   1.0000   Median :  0.6905         Median :  8.00  
+##  Mean   :   0.9965   Mean   :  0.6892         Mean   : 10.88  
+##  3rd Qu.:   1.0000   3rd Qu.:  0.7546         3rd Qu.: 14.00  
+##  Max.   :1042.0000   Max.   :650.0000         Max.   :304.00  
+##                                                               
+##  num_self_hrefs       num_imgs         num_videos    average_token_length
+##  Min.   :  0.000   Min.   :  0.000   Min.   : 0.00   Min.   :0.000       
+##  1st Qu.:  1.000   1st Qu.:  1.000   1st Qu.: 0.00   1st Qu.:4.478       
+##  Median :  3.000   Median :  1.000   Median : 0.00   Median :4.664       
+##  Mean   :  3.294   Mean   :  4.544   Mean   : 1.25   Mean   :4.548       
+##  3rd Qu.:  4.000   3rd Qu.:  4.000   3rd Qu.: 1.00   3rd Qu.:4.855       
+##  Max.   :116.000   Max.   :128.000   Max.   :91.00   Max.   :8.042       
+##                                                                          
+##   num_keywords    data_channel_is_lifestyle data_channel_is_entertainment
+##  Min.   : 1.000   Min.   :0.00000           Min.   :0.000                
+##  1st Qu.: 6.000   1st Qu.:0.00000           1st Qu.:0.000                
+##  Median : 7.000   Median :0.00000           Median :0.000                
+##  Mean   : 7.224   Mean   :0.05295           Mean   :0.178                
+##  3rd Qu.: 9.000   3rd Qu.:0.00000           3rd Qu.:0.000                
+##  Max.   :10.000   Max.   :1.00000           Max.   :1.000                
+##                                                                          
+##  data_channel_is_bus data_channel_is_socmed data_channel_is_tech
+##  Min.   :0.0000      Min.   :0.0000         Min.   :0.0000      
+##  1st Qu.:0.0000      1st Qu.:0.0000         1st Qu.:0.0000      
+##  Median :0.0000      Median :0.0000         Median :0.0000      
+##  Mean   :0.1579      Mean   :0.0586         Mean   :0.1853      
+##  3rd Qu.:0.0000      3rd Qu.:0.0000         3rd Qu.:0.0000      
+##  Max.   :1.0000      Max.   :1.0000         Max.   :1.0000      
+##                                                                 
+##  data_channel_is_world   kw_min_min       kw_max_min       kw_avg_min     
+##  Min.   :0.0000        Min.   : -1.00   Min.   :     0   Min.   :   -1.0  
+##  1st Qu.:0.0000        1st Qu.: -1.00   1st Qu.:   445   1st Qu.:  141.8  
+##  Median :0.0000        Median : -1.00   Median :   660   Median :  235.5  
+##  Mean   :0.2126        Mean   : 26.11   Mean   :  1154   Mean   :  312.4  
+##  3rd Qu.:0.0000        3rd Qu.:  4.00   3rd Qu.:  1000   3rd Qu.:  357.0  
+##  Max.   :1.0000        Max.   :377.00   Max.   :298400   Max.   :42827.9  
+##                                                                           
+##    kw_min_max       kw_max_max       kw_avg_max       kw_min_avg  
+##  Min.   :     0   Min.   :     0   Min.   :     0   Min.   :  -1  
+##  1st Qu.:     0   1st Qu.:843300   1st Qu.:172847   1st Qu.:   0  
+##  Median :  1400   Median :843300   Median :244572   Median :1024  
+##  Mean   : 13612   Mean   :752324   Mean   :259282   Mean   :1117  
+##  3rd Qu.:  7900   3rd Qu.:843300   3rd Qu.:330980   3rd Qu.:2057  
+##  Max.   :843300   Max.   :843300   Max.   :843300   Max.   :3613  
+##                                                                   
+##    kw_max_avg       kw_avg_avg    self_reference_min_shares
+##  Min.   :     0   Min.   :    0   Min.   :     0           
+##  1st Qu.:  3562   1st Qu.: 2382   1st Qu.:   639           
+##  Median :  4356   Median : 2870   Median :  1200           
+##  Mean   :  5657   Mean   : 3136   Mean   :  3999           
+##  3rd Qu.:  6020   3rd Qu.: 3600   3rd Qu.:  2600           
+##  Max.   :298400   Max.   :43568   Max.   :843300           
+##                                                            
+##  self_reference_max_shares self_reference_avg_sharess weekday_is_monday
+##  Min.   :     0            Min.   :     0.0           Min.   :0.000    
+##  1st Qu.:  1100            1st Qu.:   981.2           1st Qu.:0.000    
+##  Median :  2800            Median :  2200.0           Median :0.000    
+##  Mean   : 10329            Mean   :  6401.7           Mean   :0.168    
+##  3rd Qu.:  8000            3rd Qu.:  5200.0           3rd Qu.:0.000    
+##  Max.   :843300            Max.   :843300.0           Max.   :1.000    
+##                                                                        
+##  weekday_is_tuesday weekday_is_wednesday weekday_is_thursday
+##  Min.   :0.0000     Min.   :0.0000       Min.   :0.0000     
+##  1st Qu.:0.0000     1st Qu.:0.0000       1st Qu.:0.0000     
+##  Median :0.0000     Median :0.0000       Median :0.0000     
+##  Mean   :0.1864     Mean   :0.1875       Mean   :0.1833     
+##  3rd Qu.:0.0000     3rd Qu.:0.0000       3rd Qu.:0.0000     
+##  Max.   :1.0000     Max.   :1.0000       Max.   :1.0000     
+##                                                             
+##  weekday_is_friday weekday_is_saturday weekday_is_sunday   is_weekend    
+##  Min.   :0.0000    Min.   :0.00000     Min.   :0.00000   Min.   :0.0000  
+##  1st Qu.:0.0000    1st Qu.:0.00000     1st Qu.:0.00000   1st Qu.:0.0000  
+##  Median :0.0000    Median :0.00000     Median :0.00000   Median :0.0000  
+##  Mean   :0.1438    Mean   :0.06188     Mean   :0.06904   Mean   :0.1309  
+##  3rd Qu.:0.0000    3rd Qu.:0.00000     3rd Qu.:0.00000   3rd Qu.:0.0000  
+##  Max.   :1.0000    Max.   :1.00000     Max.   :1.00000   Max.   :1.0000  
+##                                                                          
+##      LDA_00            LDA_01            LDA_02            LDA_03       
+##  Min.   :0.00000   Min.   :0.00000   Min.   :0.00000   Min.   :0.00000  
+##  1st Qu.:0.02505   1st Qu.:0.02501   1st Qu.:0.02857   1st Qu.:0.02857  
+##  Median :0.03339   Median :0.03334   Median :0.04000   Median :0.04000  
+##  Mean   :0.18460   Mean   :0.14126   Mean   :0.21632   Mean   :0.22377  
+##  3rd Qu.:0.24096   3rd Qu.:0.15083   3rd Qu.:0.33422   3rd Qu.:0.37576  
+##  Max.   :0.92699   Max.   :0.92595   Max.   :0.92000   Max.   :0.92653  
+##                                                                         
+##      LDA_04        global_subjectivity global_sentiment_polarity
+##  Min.   :0.00000   Min.   :0.0000      Min.   :-0.39375         
+##  1st Qu.:0.02857   1st Qu.:0.3962      1st Qu.: 0.05776         
+##  Median :0.04073   Median :0.4535      Median : 0.11912         
+##  Mean   :0.23403   Mean   :0.4434      Mean   : 0.11931         
+##  3rd Qu.:0.39999   3rd Qu.:0.5083      3rd Qu.: 0.17783         
+##  Max.   :0.92719   Max.   :1.0000      Max.   : 0.72784         
+##                                                                 
+##  global_rate_positive_words global_rate_negative_words rate_positive_words
+##  Min.   :0.00000            Min.   :0.000000           Min.   :0.0000     
+##  1st Qu.:0.02838            1st Qu.:0.009615           1st Qu.:0.6000     
+##  Median :0.03902            Median :0.015337           Median :0.7105     
+##  Mean   :0.03962            Mean   :0.016612           Mean   :0.6822     
+##  3rd Qu.:0.05028            3rd Qu.:0.021739           3rd Qu.:0.8000     
+##  Max.   :0.15549            Max.   :0.184932           Max.   :1.0000     
+##                                                                           
+##  rate_negative_words avg_positive_polarity min_positive_polarity
+##  Min.   :0.0000      Min.   :0.0000        Min.   :0.00000      
+##  1st Qu.:0.1852      1st Qu.:0.3062        1st Qu.:0.05000      
+##  Median :0.2800      Median :0.3588        Median :0.10000      
+##  Mean   :0.2879      Mean   :0.3538        Mean   :0.09545      
+##  3rd Qu.:0.3846      3rd Qu.:0.4114        3rd Qu.:0.10000      
+##  Max.   :1.0000      Max.   :1.0000        Max.   :1.00000      
+##                                                                 
+##  max_positive_polarity avg_negative_polarity min_negative_polarity
+##  Min.   :0.0000        Min.   :-1.0000       Min.   :-1.0000      
+##  1st Qu.:0.6000        1st Qu.:-0.3284       1st Qu.:-0.7000      
+##  Median :0.8000        Median :-0.2533       Median :-0.5000      
+##  Mean   :0.7567        Mean   :-0.2595       Mean   :-0.5219      
+##  3rd Qu.:1.0000        3rd Qu.:-0.1869       3rd Qu.:-0.3000      
+##  Max.   :1.0000        Max.   : 0.0000       Max.   : 0.0000      
+##                                                                   
+##  max_negative_polarity title_subjectivity title_sentiment_polarity
+##  Min.   :-1.0000       Min.   :0.0000     Min.   :-1.00000        
+##  1st Qu.:-0.1250       1st Qu.:0.0000     1st Qu.: 0.00000        
+##  Median :-0.1000       Median :0.1500     Median : 0.00000        
+##  Mean   :-0.1075       Mean   :0.2824     Mean   : 0.07143        
+##  3rd Qu.:-0.0500       3rd Qu.:0.5000     3rd Qu.: 0.15000        
+##  Max.   : 0.0000       Max.   :1.0000     Max.   : 1.00000        
+##                                                                   
+##  abs_title_subjectivity abs_title_sentiment_polarity     shares      
+##  Min.   :0.0000         Min.   :0.0000               Min.   :     1  
+##  1st Qu.:0.1667         1st Qu.:0.0000               1st Qu.:   946  
+##  Median :0.5000         Median :0.0000               Median :  1400  
+##  Mean   :0.3418         Mean   :0.1561               Mean   :  3395  
+##  3rd Qu.:0.5000         3rd Qu.:0.2500               3rd Qu.:  2800  
+##  Max.   :0.5000         Max.   :1.0000               Max.   :843300  
+## 
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Head of the data}
+\KeywordTok{head}\NormalTok{(MyData[}\DecValTok{1}\OperatorTok{:}\DecValTok{5}\NormalTok{,])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                                                              url timedelta
+## 1   http://mashable.com/2013/01/07/amazon-instant-video-browser/       731
+## 2    http://mashable.com/2013/01/07/ap-samsung-sponsored-tweets/       731
+## 3 http://mashable.com/2013/01/07/apple-40-billion-app-downloads/       731
+## 4       http://mashable.com/2013/01/07/astronaut-notre-dame-bcs/       731
+## 5               http://mashable.com/2013/01/07/att-u-verse-apps/       731
+##   n_tokens_title n_tokens_content n_unique_tokens n_non_stop_words
+## 1             12              219       0.6635945                1
+## 2              9              255       0.6047431                1
+## 3              9              211       0.5751295                1
+## 4              9              531       0.5037879                1
+## 5             13             1072       0.4156456                1
+##   n_non_stop_unique_tokens num_hrefs num_self_hrefs num_imgs num_videos
+## 1                0.8153846         4              2        1          0
+## 2                0.7919463         3              1        1          0
+## 3                0.6638655         3              1        1          0
+## 4                0.6656347         9              0        1          0
+## 5                0.5408895        19             19       20          0
+##   average_token_length num_keywords data_channel_is_lifestyle
+## 1             4.680365            5                         0
+## 2             4.913725            4                         0
+## 3             4.393365            6                         0
+## 4             4.404896            7                         0
+## 5             4.682836            7                         0
+##   data_channel_is_entertainment data_channel_is_bus data_channel_is_socmed
+## 1                             1                   0                      0
+## 2                             0                   1                      0
+## 3                             0                   1                      0
+## 4                             1                   0                      0
+## 5                             0                   0                      0
+##   data_channel_is_tech data_channel_is_world kw_min_min kw_max_min
+## 1                    0                     0          0          0
+## 2                    0                     0          0          0
+## 3                    0                     0          0          0
+## 4                    0                     0          0          0
+## 5                    1                     0          0          0
+##   kw_avg_min kw_min_max kw_max_max kw_avg_max kw_min_avg kw_max_avg
+## 1          0          0          0          0          0          0
+## 2          0          0          0          0          0          0
+## 3          0          0          0          0          0          0
+## 4          0          0          0          0          0          0
+## 5          0          0          0          0          0          0
+##   kw_avg_avg self_reference_min_shares self_reference_max_shares
+## 1          0                       496                       496
+## 2          0                         0                         0
+## 3          0                       918                       918
+## 4          0                         0                         0
+## 5          0                       545                     16000
+##   self_reference_avg_sharess weekday_is_monday weekday_is_tuesday
+## 1                    496.000                 1                  0
+## 2                      0.000                 1                  0
+## 3                    918.000                 1                  0
+## 4                      0.000                 1                  0
+## 5                   3151.158                 1                  0
+##   weekday_is_wednesday weekday_is_thursday weekday_is_friday
+## 1                    0                   0                 0
+## 2                    0                   0                 0
+## 3                    0                   0                 0
+## 4                    0                   0                 0
+## 5                    0                   0                 0
+##   weekday_is_saturday weekday_is_sunday is_weekend     LDA_00     LDA_01
+## 1                   0                 0          0 0.50033120 0.37827893
+## 2                   0                 0          0 0.79975569 0.05004668
+## 3                   0                 0          0 0.21779229 0.03333446
+## 4                   0                 0          0 0.02857322 0.41929964
+## 5                   0                 0          0 0.02863281 0.02879355
+##       LDA_02     LDA_03     LDA_04 global_subjectivity
+## 1 0.04000468 0.04126265 0.04012254           0.5216171
+## 2 0.05009625 0.05010067 0.05000071           0.3412458
+## 3 0.03335142 0.03333354 0.68218829           0.7022222
+## 4 0.49465083 0.02890472 0.02857160           0.4298497
+## 5 0.02857518 0.02857168 0.88542678           0.5135021
+##   global_sentiment_polarity global_rate_positive_words
+## 1                0.09256198                 0.04566210
+## 2                0.14894781                 0.04313725
+## 3                0.32333333                 0.05687204
+## 4                0.10070467                 0.04143126
+## 5                0.28100348                 0.07462687
+##   global_rate_negative_words rate_positive_words rate_negative_words
+## 1                0.013698630           0.7692308           0.2307692
+## 2                0.015686275           0.7333333           0.2666667
+## 3                0.009478673           0.8571429           0.1428571
+## 4                0.020715631           0.6666667           0.3333333
+## 5                0.012126866           0.8602151           0.1397849
+##   avg_positive_polarity min_positive_polarity max_positive_polarity
+## 1             0.3786364            0.10000000                   0.7
+## 2             0.2869146            0.03333333                   0.7
+## 3             0.4958333            0.10000000                   1.0
+## 4             0.3859652            0.13636364                   0.8
+## 5             0.4111274            0.03333333                   1.0
+##   avg_negative_polarity min_negative_polarity max_negative_polarity
+## 1            -0.3500000                -0.600            -0.2000000
+## 2            -0.1187500                -0.125            -0.1000000
+## 3            -0.4666667                -0.800            -0.1333333
+## 4            -0.3696970                -0.600            -0.1666667
+## 5            -0.2201923                -0.500            -0.0500000
+##   title_subjectivity title_sentiment_polarity abs_title_subjectivity
+## 1          0.5000000               -0.1875000             0.00000000
+## 2          0.0000000                0.0000000             0.50000000
+## 3          0.0000000                0.0000000             0.50000000
+## 4          0.0000000                0.0000000             0.50000000
+## 5          0.4545455                0.1363636             0.04545455
+##   abs_title_sentiment_polarity shares
+## 1                    0.1875000    593
+## 2                    0.0000000    711
+## 3                    0.0000000   1500
+## 4                    0.0000000   1200
+## 5                    0.1363636    505
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Std Deviation of the data}
+\KeywordTok{sd}\NormalTok{(MyData}\OperatorTok{$}\NormalTok{shares,}\DataTypeTok{na.rm =} \OtherTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 11626.95
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{options}\NormalTok{(}\DataTypeTok{scipen=}\DecValTok{5}\NormalTok{)}
+
+
+\CommentTok{#Simple data Plot}
+\KeywordTok{plot}\NormalTok{(MyData}\OperatorTok{$}\NormalTok{num_imgs,MyData}\OperatorTok{$}\NormalTok{shares)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{DataAnalysis_files/figure-latex/unnamed-chunk-1-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Histogram for shares}
+\KeywordTok{hist}\NormalTok{(MyData}\OperatorTok{$}\NormalTok{shares)}
+
+\CommentTok{#Lets look at the data once again}
+\NormalTok{shares_log =}\StringTok{ }\KeywordTok{log}\NormalTok{(MyData}\OperatorTok{$}\NormalTok{shares)}
+\KeywordTok{head}\NormalTok{(shares_log)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 6.385194 6.566672 7.313220 7.090077 6.224558 6.751101
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{shares_log[}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] 6.385194 6.566672 7.313220 7.090077 6.224558 6.751101 6.320768
+##  [8] 6.792344 8.188689 6.565265
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{median}\NormalTok{(shares_log)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 7.244228
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{max}\NormalTok{(shares_log)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 13.64508
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Use ggplot2 for better plots}
+\KeywordTok{require}\NormalTok{(ggplot2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: ggplot2
+\end{verbatim}
+
+\includegraphics{DataAnalysis_files/figure-latex/unnamed-chunk-1-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Plotting the histogram with delimiting x and y axis}
+\KeywordTok{qplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ MyData, }\DataTypeTok{x =}\NormalTok{ shares_log) }\OperatorTok{+}\StringTok{ }\KeywordTok{ylab}\NormalTok{(}\StringTok{"Frequency"}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{xlab}\NormalTok{(}\StringTok{"No of Shares"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+\end{verbatim}
+
+\includegraphics{DataAnalysis_files/figure-latex/unnamed-chunk-1-3.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Using density}
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data=}\NormalTok{MyData, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ shares_log)) }\OperatorTok{+}\StringTok{ }\KeywordTok{stat_density}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{DataAnalysis_files/figure-latex/unnamed-chunk-1-4.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Plot for positive and negative polarity}
+
+\KeywordTok{qplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ MyData, }\DataTypeTok{x =}\NormalTok{ shares_log, }\DataTypeTok{y =}\NormalTok{ MyData}\OperatorTok{$}\NormalTok{avg_positive_polarity) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{ylab}\NormalTok{(}\StringTok{"Positive Polarity"}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{xlab}\NormalTok{(}\StringTok{"Shares"}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{DataAnalysis_files/figure-latex/unnamed-chunk-1-5.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{qplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ MyData, }\DataTypeTok{x =}\NormalTok{ shares_log, }\DataTypeTok{y =}\NormalTok{ MyData}\OperatorTok{$}\NormalTok{avg_negative_polarity) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{ylab}\NormalTok{(}\StringTok{"Negative Polarity"}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{xlab}\NormalTok{(}\StringTok{"Shares"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{DataAnalysis_files/figure-latex/unnamed-chunk-1-6.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Plot for number of images}
+\KeywordTok{qplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ MyData, }\DataTypeTok{x =}\NormalTok{ shares_log, }\DataTypeTok{y =}\NormalTok{ MyData}\OperatorTok{$}\NormalTok{num_imgs) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{ylab}\NormalTok{(}\StringTok{"Number of Images"}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{xlab}\NormalTok{(}\StringTok{"Shares"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{DataAnalysis_files/figure-latex/unnamed-chunk-1-7.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Boxplot of shares}
+\KeywordTok{boxplot}\NormalTok{(shares_log,}\DataTypeTok{data=}\NormalTok{MyData, }\DataTypeTok{main=}\StringTok{"Shares Data Box Plot"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{DataAnalysis_files/figure-latex/unnamed-chunk-1-8.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Bar plot of shares}
+\KeywordTok{barplot}\NormalTok{(shares_log)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{DataAnalysis_files/figure-latex/unnamed-chunk-1-9.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Frequency bar plot}
+\NormalTok{freqTable=}\StringTok{ }\KeywordTok{table}\NormalTok{(shares_log)}
+\KeywordTok{barplot}\NormalTok{(freqTable)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{DataAnalysis_files/figure-latex/unnamed-chunk-1-10.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Bar plot shares vs videos}
+\KeywordTok{barplot}\NormalTok{(MyData}\OperatorTok{$}\NormalTok{shares,MyData}\OperatorTok{$}\NormalTok{num_videos)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{DataAnalysis_files/figure-latex/unnamed-chunk-1-11.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Histogram of shares vs videos (Not working)}
+\CommentTok{#hist(MyData$shares,MyData$num_videos)}
+\end{Highlighting}
+\end{Shaded}
+
+
+\end{document}
