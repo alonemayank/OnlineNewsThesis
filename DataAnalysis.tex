@@ -122,7 +122,7 @@
   \postauthor{\par}
       \predate{\centering\large\emph}
   \postdate{\par}
-    \date{Wed Jul 11 01:01:22 2018}
+    \date{Wed Jul 11 01:36:42 2018}
 
 
 \begin{document}
@@ -450,7 +450,13 @@
 \begin{Highlighting}[]
 \CommentTok{#Histogram for shares}
 \KeywordTok{hist}\NormalTok{(MyData}\OperatorTok{$}\NormalTok{shares)}
+\end{Highlighting}
+\end{Shaded}
 
+\includegraphics{DataAnalysis_files/figure-latex/unnamed-chunk-1-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \CommentTok{#Lets look at the data once again}
 \NormalTok{shares_log =}\StringTok{ }\KeywordTok{log}\NormalTok{(MyData}\OperatorTok{$}\NormalTok{shares)}
 \KeywordTok{head}\NormalTok{(shares_log)}
@@ -496,17 +502,7 @@
 \begin{Highlighting}[]
 \CommentTok{#Use ggplot2 for better plots}
 \KeywordTok{require}\NormalTok{(ggplot2)}
-\end{Highlighting}
-\end{Shaded}
 
-\begin{verbatim}
-## Loading required package: ggplot2
-\end{verbatim}
-
-\includegraphics{DataAnalysis_files/figure-latex/unnamed-chunk-1-2.pdf}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \CommentTok{#Plotting the histogram with delimiting x and y axis}
 \KeywordTok{qplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ MyData, }\DataTypeTok{x =}\NormalTok{ shares_log) }\OperatorTok{+}\StringTok{ }\KeywordTok{ylab}\NormalTok{(}\StringTok{"Frequency"}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{xlab}\NormalTok{(}\StringTok{"No of Shares"}\NormalTok{)}
 \end{Highlighting}
@@ -588,7 +584,7 @@
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{#Bar plot shares vs videos}
-\KeywordTok{barplot}\NormalTok{(MyData}\OperatorTok{$}\NormalTok{shares,MyData}\OperatorTok{$}\NormalTok{num_videos)}
+\KeywordTok{barplot}\NormalTok{(MyData}\OperatorTok{$}\NormalTok{shares,MyData}\OperatorTok{$}\NormalTok{num_videos,}\DataTypeTok{xlab=} \StringTok{"Shares"}\NormalTok{, }\DataTypeTok{ylab=}\StringTok{"Videos"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 

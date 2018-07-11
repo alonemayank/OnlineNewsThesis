@@ -10,6 +10,6 @@ json = fromJSON(file = "/Users/apurvatripathi/Desktop/Thesis Cloud/OnlineNewsDat
 newsText = do.call(cbind, json)
 
 #Write data to csv file change seperators
-write.csv(newsText, file = "NewsData2.csv", sep="|")
+write.csv(newsText, file = "NewsData.csv", sep="|")
   
   
