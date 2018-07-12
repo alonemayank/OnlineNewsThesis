@@ -1,5 +1,6 @@
 library("rjson")
-
+#Next line for exporting to HTML as PDF fails (it will not render any plots)
+#dev.off()
 #Read Original Statistics Data from UCI
 MyData <- read.csv(file="./OnlineNewsPopularity.csv", header=TRUE, sep=",")
 
@@ -87,6 +88,15 @@ barplot(MyData$shares,MyData$num_videos,xlab= "Shares", ylab="Videos",main="log(
 #Histogram of shares vs videos (Not working)
 #hist(MyData$shares,MyData$num_videos)
 
+#Pie Chart of News Categeories
+slices = c(sum(MyData$data_channel_is_lifestyle),sum(MyData$data_channel_is_entertainment),sum(MyData$data_channel_is_bus),sum(MyData$data_channel_is_socmed),sum(MyData$data_channel_is_tech),sum(MyData$data_channel_is_world)) 
+Clabels = c("Lifestyle", "Entertainment", "Bussniss", "Social Media", "Technology", "World")
+percentage = round(slices/sum(slices)*100)
+Clabels = paste(Clabels, percentage) # add percents to labels 
+Clabels = paste(Clabels,"%",sep="") # ad % to labels 
+pie(slices,labels = Clabels,main="Pie Chart of News Categeories")
+
+
 #Summary statistics suggested by Dr. Golen
 
 sapply(MyData, mean, na.rm=TRUE)
@@ -96,4 +106,4 @@ library(psych)
 description = describe(MyData)
 
 #Writing data in csv
-write.csv(description, file = "DataDescription.csv", sep=",")
+write.csv(description, file = "DataDescription.csv")
