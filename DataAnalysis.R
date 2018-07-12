@@ -86,3 +86,14 @@ barplot(MyData$shares,MyData$num_videos,xlab= "Shares", ylab="Videos",main="log(
 
 #Histogram of shares vs videos (Not working)
 #hist(MyData$shares,MyData$num_videos)
+
+#Summary statistics suggested by Dr. Golen
+
+sapply(MyData, mean, na.rm=TRUE)
+
+library(psych)
+
+description = describe(MyData)
+
+#Writing data in csv
+write.csv(description, file = "DataDescription.csv", sep=",")
