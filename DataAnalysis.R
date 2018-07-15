@@ -17,6 +17,9 @@ MyData <- read.csv(file="./OnlineNewsPopularity.csv", header=TRUE, sep=",")
 #Summary of the data
 summary(MyData)
 
+#Summary of shares
+summary(MyData$shares)
+
 
 #Head of the data
 head(MyData[1:5,])
@@ -74,6 +77,16 @@ qplot(data = MyData, x = shares_log, y = MyData$num_imgs,main ="Shares vs Images
 
 # Boxplot of shares
 boxplot(shares_log,data=MyData, main="Shares Data Box Plot")
+
+plot = ggplot(MyData, aes(y=shares_log),ylab="log(Share)") + geom_boxplot(color="blue",
+fill="blue",
+alpha = 0.2,
+# custom outliers
+outlier.colour="red",
+outlier.fill="red",
+outlier.size=3
+)
+plot + ggtitle("Box Plot of log(Shares)")
 
 #Bar plot of shares
 barplot(shares_log,main="log(Shares) Data")
