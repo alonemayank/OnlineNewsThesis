@@ -64,15 +64,16 @@ curve(dnorm(x, mean=mean(shares_log), sd=sd(shares_log)), add=TRUE, col = "red",
 
 #Plot for positive and negative polarity
 
-qplot(data = MyData, x = shares_log, y = MyData$avg_positive_polarity,main ="Shares vs Positive Polarity") + 
-  ylab("Positive Polarity") + xlab("Shares") 
+qplot(data = MyData, x = shares_log, y = MyData$avg_positive_polarity,
+      main ="Shares vs Positive Polarity") + 
+  ylab("Positive Polarity") + xlab("log(Shares)") + geom_point(color='blue', alpha = 0.1)
 
 qplot(data = MyData, x = shares_log, y = MyData$avg_negative_polarity,main ="Shares vs Neg Polarity") + 
-  ylab("Negative Polarity") + xlab("Shares")
+  ylab("Negative Polarity") + xlab("log(Shares)") + geom_point(color='blue', alpha = 0.1)
 
 #Plot for number of images
 qplot(data = MyData, x = shares_log, y = MyData$num_imgs,main ="Shares vs Images") + 
-  ylab("Number of Images") + xlab("Shares")
+  ylab("Number of Images") + xlab("log(Shares)") + geom_point(color='blue', alpha = 0.1)
 
 
 # Boxplot of shares
