@@ -127,31 +127,40 @@ world = 0
 
 #categories = c(lifestyle,entertainment,business,socialMedia,technology,world)
 
-dfLS  = c()
-#barplot(MyData)
-i=0
 
-totalShares = 0
+
+
+
 for(point in 1:nrow(MyData)){
   if(MyData[point,"data_channel_is_lifestyle"]>0){
     lifestyle = lifestyle + MyData[point,"shares"]
+    dfLS[i] = MyData[point,"content"]
+    i = i+1
   }
   if(MyData[point,"data_channel_is_entertainment"]>0){
     entertainment = entertainment + MyData[point,"shares"]
-    dfLS[i] = MyData[point,"shares"]
-    i = i+1
+    dfET[j] = MyData[point,"content"]
+    j = j+1
   }
   if(MyData[point,"data_channel_is_bus"]>0){
     business = business + MyData[point,"shares"]
+    dfBU[k] = MyData[point,"content"]
+    k = k+1
   }
   if(MyData[point,"data_channel_is_socmed"]>0){
     socialMedia = socialMedia + MyData[point,"shares"]
+    dfSM[l] = MyData[point,"content"]
+    l = l+1
   }
   if(MyData[point,"data_channel_is_tech"]>0){
     technology = technology + MyData[point,"shares"]
+    dfTC[m] = MyData[point,"content"]
+    m = m+1
   }
   if(MyData[point,"data_channel_is_world"]>0){
     world = world + MyData[point,"shares"]
+    dfWO[n] = MyData[point,"content"]
+    n = n+1
   }
 }
 
@@ -174,7 +183,6 @@ ggplot(data=plotFrame, aes(x=cats,y=vals)) +
   theme(plot.title = element_text(hjust = 0.5)) 
 
 
-#Word Cloud Section
 
 
 
