@@ -110,6 +110,73 @@ Clabels = paste(Clabels, percentage) # add percents to labels
 Clabels = paste(Clabels,"%",sep="") # ad % to labels 
 pie(slices,labels = Clabels,main="Pie Chart of News Categeories")
 
+#Bar chart of categories with shares
+# lifestyle = sum(MyData$data_channel_is_lifestyle)
+# entertainment = sum(MyData$data_channel_is_entertainment)
+# business = sum(MyData$data_channel_is_bus)
+# socialMedia = sum(MyData$data_channel_is_socmed)
+# technology = sum(MyData$data_channel_is_tech)
+# world = sum(MyData$data_channel_is_world)
+
+lifestyle = 0
+entertainment = 0
+business = 0
+socialMedia = 0
+technology = 0
+world = 0
+
+#categories = c(lifestyle,entertainment,business,socialMedia,technology,world)
+
+dfLS  = c()
+#barplot(MyData)
+i=0
+
+totalShares = 0
+for(point in 1:nrow(MyData)){
+  if(MyData[point,"data_channel_is_lifestyle"]>0){
+    lifestyle = lifestyle + MyData[point,"shares"]
+  }
+  if(MyData[point,"data_channel_is_entertainment"]>0){
+    entertainment = entertainment + MyData[point,"shares"]
+    dfLS[i] = MyData[point,"shares"]
+    i = i+1
+  }
+  if(MyData[point,"data_channel_is_bus"]>0){
+    business = business + MyData[point,"shares"]
+  }
+  if(MyData[point,"data_channel_is_socmed"]>0){
+    socialMedia = socialMedia + MyData[point,"shares"]
+  }
+  if(MyData[point,"data_channel_is_tech"]>0){
+    technology = technology + MyData[point,"shares"]
+  }
+  if(MyData[point,"data_channel_is_world"]>0){
+    world = world + MyData[point,"shares"]
+  }
+}
+
+#hist(dfLS,breaks=500,xlab= "Shares",ylab="Frequency",main="Simple Histogram of lLifestyle",col = "lightgreen")
+#plot(dfLS)
+#lifestyle = lifestyle - 843300
+categories = c(lifestyle,entertainment,business,socialMedia,technology,world)
+
+# Categories Shares bar plot in ggplot
+
+barplot(categories, main="Categories", names.arg = Clabels)
+plotFrame = data.frame(cats = Clabels, vals = categories)
+ggplot(data=plotFrame, aes(x=cats,y=vals)) + 
+  geom_bar(stat="identity",fill="steelblue")+
+  geom_text(aes(label=vals),vjust = -0.3,size=3.5)+
+  xlab("Categories") +
+  ylab("Total Shares") +
+  ggtitle("Categories Shares") +
+  theme_get() +
+  theme(plot.title = element_text(hjust = 0.5)) 
+
+
+#Word Cloud Section
+
+
 
 #Summary statistics suggested by Dr. Golen
 
